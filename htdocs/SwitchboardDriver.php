@@ -1,47 +1,24 @@
 <?php
-/*
-   Copyright 2012 KeepSafe Software Inc.
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-*/
-
-ini_set('display_errors', 1);
+ini_set("display_errors", 1);
 
 require_once("SwitchboardConfig.php");
-require_once('SwitchboardManager.php');
-require_once('SwitchboardExperiments.php');
+require_once("SwitchboardManager.php");
 
 $manager = new SwitchboardManager($_GET);
-$experiments = new SwitchboardExperiments($manager);
 
-/* Possible params
- * $lang - Device language
- * $manufacturer - Device manufacturer
- * $device - device model name
- * $uuid - client side generated unique user id
- * $country - device country
- * $version - app version
- */
-
-//result experiment array
+// Result experiment array
 $resultArray = array();
 
-//pin message
-$resultArray['homeScreenMessage'] = $experiments->sample();
-$resultArray['nextActivityTest'] = $manager->turnOnBucket(0, 50);
+// Setup the experiments for onboarding tests
+// https://mana.mozilla.org/wiki/display/FIREFOX/Fennec+First+Run
+$resultArray["onboarding-a"] = $manager->turnOnBucket(0, 33);
+$resultArray["onboarding-b"] = $manager->turnOnBucket(33, 66);
+$resultArray["onboarding-c"] = $manager->turnOnBucket(66, 100);
 
-
-//return result array as JSON
+// Return result array as JSON
 $manager->renderResultJson($resultArray);
-
 ?>
