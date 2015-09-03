@@ -114,9 +114,9 @@ class SwitchboardManager {
       * Return the bucket number of the user. There a 100 possible buckets.
       */  
     function getUserBucket() {
-    	  $checksum = crc32($this->uuid);
+    	$checksum = crc32($this->uuid);
 		  $bucket = $checksum % 100;    	
-    	  return $bucket;
+    	return $bucket;
     }
     
     function getArrayParam($array, $paramName){
