@@ -15,9 +15,8 @@ $resultArray = array();
 
 // Setup the experiments for onboarding tests
 // https://mana.mozilla.org/wiki/display/FIREFOX/Fennec+First+Run
-$resultArray["onboarding-a"] = $manager->turnOnBucket(0, 33);
-$resultArray["onboarding-b"] = $manager->turnOnBucket(33, 66);
-$resultArray["onboarding-c"] = $manager->turnOnBucket(66, 100);
+$resultArray["onboarding-a"] = $manager->turnOnBucket(0, 50);
+$resultArray["onboarding-b"] = $manager->turnOnBucket(50, 100);
 
 // Return result array as JSON
 $manager->renderResultJson($resultArray);
